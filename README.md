@@ -10,6 +10,7 @@ Mercado Libro es un proyecto en desarrollo, para la materia Programador Full Sta
 La finalidad del mismo es crear una página web navegable con código JavaScript para el frontend y Python para el backend. Se creó una base de datos en MySQL, pero por el momento se consumen los datos de un LocalStorage .json.
 La página web es capaz de mostrar el contenido a la venta con sus datos más relevantes y con la opción de consultar más información. 
 Además, ofrece la opción de registro de usuarios, con la finalidad de distribuir newsletters, permitir que el usuario haga una reseña de los libros que conoce o compró, y comprar en sí mismo.
+Este es el repositorio del backend. El repositorio frontend se puede encontrar en el siguiente link: https://github.com/CodeSquadISPC/CodeSquadRepoFrontend
 
 # Estado del proyecto
 
