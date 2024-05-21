@@ -19,5 +19,11 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    #URL aqui portadas 
+    #+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     path('ecommerce/v1/',include('ecommerce.urls'))
 ]
+
+from django.conf import settings
+from django.conf.urls.static import static
+
