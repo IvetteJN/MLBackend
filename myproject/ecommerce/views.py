@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -24,12 +23,3 @@ class LoginView(APIView):
             token, created = Token.objects.get_or_create(user=user)
             return Response({"token": token.key}, status=status.HTTP_200_OK)
         return Response({"error": "Credenciales no válidas"}, status=status.HTTP_400_BAD_REQUEST)
-=======
-from rest_framework import viewsets
-from .models import Usuario
-from .serializer import UsuarioSerializer
-
-class UsuarioViewSet(viewsets.ModelViewSet):
-    queryset = Usuario.objects.all()
-    serializer_class = UsuarioSerializer
->>>>>>> 11f96b1253f061576937f8227873de488156e8cd
