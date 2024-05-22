@@ -38,6 +38,7 @@ class UsuarioAdministrador(models.Model):
     id_admin = models.AutoField(primary_key=True)
     usuario = models.CharField(max_length=100, unique=True)
     contrasena = models.CharField(max_length=255)
+    rol = models.CharField(max_length=50, choices=[('ADMIN', 'Administrador'), ('EDITOR', 'Editor'), ('VENDEDOR', 'Vendedor'), ('CLIENTE', 'Cliente')], default='Cliente')
 
     class Meta:
         db_table = 'usuario_administrador'

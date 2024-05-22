@@ -26,15 +26,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
     'ecommerce', 
     'rest_framework',
     'rest_framework_simplejwt',
-=======
-    'ecommerce',
-    'rest_framework',
-
->>>>>>> 11f96b1253f061576937f8227873de488156e8cd
 ]
 
 MIDDLEWARE = [
@@ -75,7 +69,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'mercado_libro',
         'USER': 'root',
-        'PASSWORD': '1234', #Introducir contraseña
+        'PASSWORD': 'Ismael07', #Introducir contraseña
         'HOST': 'localhost',  
         'PORT': '3307',     
     }
