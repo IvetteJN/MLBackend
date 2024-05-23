@@ -1,8 +1,15 @@
 from rest_framework import status, viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import UsuarioCliente, UsuarioAdministrador, Rol
-from .serializers import UsuarioClienteSerializer, UsuarioAdministradorSerializer, RolSerializer
+from .models import UsuarioCliente, UsuarioAdministrador, Rol, HistorialPedido
+from .serializers import UsuarioClienteSerializer, UsuarioAdministradorSerializer, RolSerializer, HistorialPedidoSerializer
+from django.shortcuts import render
+
+class HistorialPedidoSet(viewsets.ModelViewSet):
+    queryset=HistorialPedido.objects.all()
+    serializer_class= HistorialPedidoSerializer
+
+
 
 @api_view(['POST'])
 def login(request):
