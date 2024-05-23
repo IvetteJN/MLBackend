@@ -1,5 +1,11 @@
 from rest_framework import serializers
 from .models import UsuarioCliente, UsuarioAdministrador, Rol
+from .models import HistorialPedido
+
+class HistorialPedidoSerializer (serializers.ModelSerializer):
+    class Meta:
+        model= HistorialPedido
+        fields='__all__'
 
 class UsuarioClienteSerializer(serializers.ModelSerializer):
     class Meta:

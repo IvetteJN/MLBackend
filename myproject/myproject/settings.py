@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'ecommerce', 
     'rest_framework',
     'rest_framework_simplejwt',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -39,6 +40,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost',
 ]
 
 ROOT_URLCONF = 'myproject.urls'
@@ -67,11 +74,11 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mercado_libro',
+        'NAME': 'mercadolibro',
         'USER': 'root',
-        'PASSWORD': 'Ismael07', #Introducir contraseña
+        'PASSWORD': '1234', #Introducir contraseña
         'HOST': 'localhost',  
-        'PORT': '3307',     
+        'PORT': '3306',     
     }
 }
 
