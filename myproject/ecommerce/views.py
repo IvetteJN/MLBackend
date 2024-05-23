@@ -1,25 +1,53 @@
-from rest_framework import status
+from rest_framework import status, viewsets
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.authtoken.models import Token
-from ecommerce.models import UsuarioCliente
-from ecommerce.serializers import UsuarioClienteSerializer
-from django.contrib.auth import authenticate
+from .models import UsuarioCliente, UsuarioAdministrador, Rol
+from .serializers import UsuarioClienteSerializer, UsuarioAdministradorSerializer, RolSerializer
 
-class RegistroView(APIView):
-    def post(self, request):
-        serializer = UsuarioClienteSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            return Response({"mensaje": "Usuario creado correctamente"}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+@api_view(['POST'])
+def login(request):
 
-class LoginView(APIView):
-    def post(self, request):
-        email = request.data.get('email')
-        contrasena = request.data.get('contrasena')
-        user = authenticate(request, username=email, password=contrasena)
-        if user is not None:
-            token, created = Token.objects.get_or_create(user=user)
-            return Response({"token": token.key}, status=status.HTTP_200_OK)
-        return Response({"error": "Credenciales no válidas"}, status=status.HTTP_400_BAD_REQUEST)
+    email = request.data.get('email')
+    contrasena = request.data.get('contrasena')
+
+    if not email or not contrasena:
+        return Response({'error': 'Por favor proporciona email y contraseña'}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Lógica de autenticación para usuario cliente
+    try:
+        user = UsuarioCliente.objects.get(email=email, contrasena=contrasena)
+        serializer = UsuarioClienteSerializer(user)
+        return Response(serializer.data)
+    except UsuarioCliente.DoesNotExist:
+        pass
+
+    # Lógica de autenticación para usuario administrador
+    try:
+        user = UsuarioAdministrador.objects.get(usuario=email, contrasena=contrasena)
+        serializer = UsuarioAdministradorSerializer(user)
+        return Response(serializer.data)
+    except UsuarioAdministrador.DoesNotExist:
+        return Response({'error': 'Usuario o contraseña incorrectos'}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def registro_usuario(request):
+
+    serializer = UsuarioClienteSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UsuarioClienteViewSet(viewsets.ModelViewSet):
+
+    queryset = UsuarioCliente.objects.all()
+    serializer_class = UsuarioClienteSerializer
+
+class UsuarioAdministradorViewSet(viewsets.ModelViewSet):
+
+    queryset = UsuarioAdministrador.objects.all()
+    serializer_class = UsuarioAdministradorSerializer
+
+class RolViewSet(viewsets.ModelViewSet):
+    queryset = Rol.objects.all()
+    serializer_class = RolSerializer
