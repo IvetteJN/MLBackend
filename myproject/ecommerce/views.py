@@ -6,7 +6,6 @@ from .serializers import UsuarioClienteSerializer, UsuarioAdministradorSerialize
 
 @api_view(['POST'])
 def login(request):
-
     email = request.data.get('email')
     contrasena = request.data.get('contrasena')
 
@@ -31,7 +30,6 @@ def login(request):
 
 @api_view(['POST'])
 def registro_usuario(request):
-
     serializer = UsuarioClienteSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()

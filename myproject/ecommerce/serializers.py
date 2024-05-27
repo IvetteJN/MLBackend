@@ -4,7 +4,7 @@ from .models import UsuarioCliente, UsuarioAdministrador, Rol
 class UsuarioClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = UsuarioCliente
-        fields = ('id_cliente', 'nombre', 'email', 'contrasena')
+        fields = ('nombre', 'email', 'contrasena')
 
 class UsuarioAdministradorSerializer(serializers.ModelSerializer):
     class Meta:
