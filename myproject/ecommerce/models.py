@@ -22,11 +22,22 @@ class Autor(models.Model):
     def __str__(self):
         return f'{self.nombre}'
 
+class Rol(models.Model):
+    nombre = models.CharField(max_length=100)
+    description = models.TextField(default='No description')
+
+    class Meta:
+        db_table = 'rol'
+
+    def __str__(self):
+        return self.nombre
+
 class UsuarioCliente(models.Model):
     id_cliente = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=200)
     email = models.EmailField(unique=True)
     contrasena = models.CharField(max_length=255)
+    roles = models.ManyToManyField(Rol)
 
     class Meta:
         db_table = 'usuario_cliente'
@@ -38,6 +49,7 @@ class UsuarioAdministrador(models.Model):
     id_admin = models.AutoField(primary_key=True)
     usuario = models.CharField(max_length=100, unique=True)
     contrasena = models.CharField(max_length=255)
+    roles = models.ManyToManyField(Rol)
 
     class Meta:
         db_table = 'usuario_administrador'
@@ -45,6 +57,14 @@ class UsuarioAdministrador(models.Model):
     def __str__(self):
         return self.usuario
 
+    def otorgar_permisos(self, usuario, roles):
+        # Verificar si el administrador tiene permiso para otorgar permisos
+        if self.roles.filter(name="Otorgar permisos").exists():
+            usuario.roles.add(*roles)
+            print(f"Permisos otorgados a {usuario.nombre}: {roles}")
+        else:
+            print("No tienes permisos para otorgar permisos.")
+        
 class Direccion(models.Model):
     id_direccion = models.AutoField(primary_key=True)
     usuario_cliente = models.ForeignKey(UsuarioCliente, on_delete=models.CASCADE, null=True, blank=True)
@@ -160,9 +180,3 @@ class Reseña(models.Model):
 
     def __str__(self):
         return f'Reseña {self.id_resena} - {self.calificacion}'
-
-class Rol(models.Model):
-    nombre_rol = models.CharField(max_length=50, unique=True)
-
-    def __str__(self):
-        return self.nombre_rol
