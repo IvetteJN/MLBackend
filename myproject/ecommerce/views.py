@@ -5,6 +5,9 @@ from .models import UsuarioCliente, UsuarioAdministrador, Rol, HistorialPedido
 from .serializers import UsuarioClienteSerializer, UsuarioAdministradorSerializer, RolSerializer, HistorialPedidoSerializer
 from django.shortcuts import render
 
+
+
+
 class HistorialPedidoSet(viewsets.ModelViewSet):
     queryset=HistorialPedido.objects.all()
     serializer_class= HistorialPedidoSerializer
@@ -56,3 +59,5 @@ class UsuarioAdministradorViewSet(viewsets.ModelViewSet):
 class RolViewSet(viewsets.ModelViewSet):
     queryset = Rol.objects.all()
     serializer_class = RolSerializer
+    
+    
