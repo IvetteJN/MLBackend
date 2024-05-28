@@ -10,7 +10,7 @@ class HistorialPedidoSerializer (serializers.ModelSerializer):
 class UsuarioClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = UsuarioCliente
-        fields = ('id_cliente', 'nombre', 'email', 'contrasena')
+        fields = ('nombre', 'email', 'contrasena')
 
 class UsuarioAdministradorSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,4 +25,5 @@ class UsuarioClienteRegistroSerializer(serializers.ModelSerializer):
 class RolSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rol
-        fields = ('id', 'nombre_rol')
+        fields = ('id', 'nombre')
+
