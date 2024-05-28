@@ -38,7 +38,6 @@ class UsuarioAdministrador(models.Model):
     id_admin = models.AutoField(primary_key=True)
     usuario = models.CharField(max_length=100, unique=True)
     contrasena = models.CharField(max_length=255)
-    rol = models.CharField(max_length=50, choices=[('ADMIN', 'Administrador'), ('EDITOR', 'Editor'), ('VENDEDOR', 'Vendedor'), ('CLIENTE', 'Cliente')], default='Cliente')
 
     class Meta:
         db_table = 'usuario_administrador'
@@ -161,3 +160,9 @@ class Reseña(models.Model):
 
     def __str__(self):
         return f'Reseña {self.id_resena} - {self.calificacion}'
+
+class Rol(models.Model):
+    nombre_rol = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.nombre_rol
