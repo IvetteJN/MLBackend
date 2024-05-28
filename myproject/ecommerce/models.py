@@ -10,7 +10,95 @@ class Categoria(models.Model):
         verbose_name_plural = 'Categorías'
 
     def __str__(self):
-        return self.categoria
+        return self.nombre_categoria
+
+class Autor(models.Model):
+    id_autor = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=200)
+
+    class Meta:
+        db_table = 'autor'
+
+    def __str__(self):
+        return f'{self.nombre}'
+
+class Rol(models.Model):
+    nombre = models.CharField(max_length=100)
+    description = models.TextField(default='No description')
+
+    class Meta:
+        db_table = 'rol'
+
+    def __str__(self):
+        return self.nombre
+
+class UsuarioCliente(models.Model):
+    id_cliente = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=200)
+    email = models.EmailField(unique=True)
+    contrasena = models.CharField(max_length=255)
+    roles = models.ManyToManyField(Rol)
+
+    class Meta:
+        db_table = 'usuario_cliente'
+
+    def __str__(self):
+        return f'{self.nombre}'
+
+class UsuarioAdministrador(models.Model):
+    id_admin = models.AutoField(primary_key=True)
+    usuario = models.CharField(max_length=100, unique=True)
+    contrasena = models.CharField(max_length=255)
+    roles = models.ManyToManyField(Rol)
+
+    class Meta:
+        db_table = 'usuario_administrador'
+
+    def __str__(self):
+        return self.usuario
+
+    def otorgar_permisos(self, usuario, roles):
+        # Verificar si el administrador tiene permiso para otorgar permisos
+        if self.roles.filter(name="Otorgar permisos").exists():
+            usuario.roles.add(*roles)
+            print(f"Permisos otorgados a {usuario.nombre}: {roles}")
+        else:
+            print("No tienes permisos para otorgar permisos.")
+        
+class Direccion(models.Model):
+    id_direccion = models.AutoField(primary_key=True)
+    usuario_cliente = models.ForeignKey(UsuarioCliente, on_delete=models.CASCADE, null=True, blank=True)
+    direccion = models.CharField(max_length=255)
+    ciudad = models.CharField(max_length=100)
+    provincia = models.CharField('Provincia', max_length=100, default='Desconocido')
+    codigo_postal = models.CharField(max_length=20)
+    pais = models.CharField(max_length=100)
+
+    class Meta:
+        db_table = 'direccion'
+
+    def __str__(self):
+        return self.direccion
+
+class FormaEnvio(models.Model):
+    id_forma_envio = models.AutoField(primary_key=True)
+    descripcion = models.CharField(max_length=100)
+
+    class Meta:
+        db_table = 'forma_envio'
+
+    def __str__(self):
+        return self.descripcion
+
+class FormaPago(models.Model):
+    id_forma_pago = models.AutoField(primary_key=True)
+    descripcion = models.CharField(max_length=100)
+
+    class Meta:
+        db_table = 'forma_pago'
+
+    def __str__(self):
+        return self.descripcion
 
 class Libro(models.Model):
     id_libro = models.AutoField(primary_key=True)
