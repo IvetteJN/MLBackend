@@ -46,7 +46,7 @@ class PedidoAdmin(admin.ModelAdmin):
 
 @admin.register(HistorialPedido)
 class HistorialPedidoAdmin(admin.ModelAdmin):
-    list_display = ('id_historial', 'pedido', 'estado_pedido', 'fecha_cambio')
+    list_display = ('id_historial', 'estado_pedido', 'fecha_cambio')
     search_fields = ('pedido__id_pedido', 'estado_pedido')
     list_filter = ('estado_pedido', 'fecha_cambio')
 

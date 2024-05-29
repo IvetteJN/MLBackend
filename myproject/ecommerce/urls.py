@@ -9,15 +9,9 @@ router.register(r'historialPedidos',views.HistorialPedidoSet)
 router.register(r'api/roles', views.RolViewSet)
 router.register(r'api/clientes', views.UsuarioClienteViewSet)
 router.register(r'api/administradores', views.UsuarioAdministradorViewSet)
-# router.register(r'productos', views.a)
 
 urlpatterns = [
     path('', include(router.urls)),
     path('api/login/', views.login),
     path('api/registro/', views.registro_usuario, name='registro_usuario'),
-    path('api/', include('productos.urls')),
 ]
-
-
-
-

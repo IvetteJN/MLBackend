@@ -45,10 +45,6 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost',
-    ]
-
 ROOT_URLCONF = 'myproject.urls'
 
 TEMPLATES = [
@@ -75,9 +71,9 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mercado_libro',
+        'NAME': 'mercadolibro',
         'USER': 'root',
-        'PASSWORD': 'Argentina15', #Introducir contraseña
+        'PASSWORD': 'Ismael07', #Introducir contraseña
         'HOST': 'localhost',  
         'PORT': '3306',     
     }
