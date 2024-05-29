@@ -25,4 +25,4 @@ class UsuarioClienteRegistroSerializer(serializers.ModelSerializer):
 class RolSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rol
-        fields = ('id', 'nombre_rol')
+        fields = ('id', 'nombre')
