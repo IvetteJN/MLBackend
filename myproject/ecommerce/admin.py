@@ -11,12 +11,12 @@ class CategoriaAdmin(admin.ModelAdmin):
 @admin.register(Autor)
 class AutorAdmin(admin.ModelAdmin):
     list_display = ('id_autor', 'nombre')
-    search_fields = ('nombre', 'apellido')
+    search_fields = ('nombre',)
 
 @admin.register(UsuarioCliente)
 class UsuarioClienteAdmin(admin.ModelAdmin):
     list_display = ('id_cliente', 'nombre', 'email')
-    search_fields = ('nombre', 'apellido', 'email')
+    search_fields = ('nombre', 'email')
 
 @admin.register(UsuarioAdministrador)
 class UsuarioAdministradorAdmin(admin.ModelAdmin):

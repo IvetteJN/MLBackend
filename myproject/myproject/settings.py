@@ -26,11 +26,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ecommerce',    
+    'ecommerce',    #app
     'rest_framework_simplejwt',
-
     'rest_framework',
-    'corsheaders',
+    'corsheaders', #para permisos de cors
 ]
 
 MIDDLEWARE = [
@@ -45,10 +44,6 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
-
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost',
-    ]
 
 ROOT_URLCONF = 'myproject.urls'
 
