@@ -11,7 +11,7 @@ class CategoriaAdmin(admin.ModelAdmin):
 @admin.register(Autor)
 class AutorAdmin(admin.ModelAdmin):
     list_display = ('id_autor', 'nombre')
-    search_fields = ('nombre',)
+    search_fields = ('nombre', 'apellido')
 
 @admin.register(UsuarioCliente)
 class UsuarioClienteAdmin(admin.ModelAdmin):

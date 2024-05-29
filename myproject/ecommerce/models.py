@@ -180,7 +180,6 @@ class DetallePedido(models.Model):
 class HistorialPedido(models.Model):
     id_historial = models.AutoField(primary_key=True)
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
-    cantidad = models.IntegerField()
     estado_pedido = models.CharField(max_length=50)
     fecha_cambio = models.DateTimeField(auto_now_add=True)
 
@@ -190,12 +189,10 @@ class HistorialPedido(models.Model):
     def __str__(self):
         return f'Historial {self.id_historial} - {self.estado_pedido}'
 
-
 class Reseña(models.Model):
     id_resena = models.AutoField(primary_key=True)
     libro = models.ForeignKey(Libro, on_delete=models.CASCADE)
-    usuario_cliente = models.ForeignKey(
-        UsuarioCliente, on_delete=models.CASCADE)
+    usuario_cliente = models.ForeignKey(UsuarioCliente, on_delete=models.CASCADE)
     comentario = models.TextField()
     calificacion = models.IntegerField()
     fecha_resena = models.DateTimeField(auto_now_add=True)
@@ -205,3 +202,9 @@ class Reseña(models.Model):
 
     def __str__(self):
         return f'Reseña {self.id_resena} - {self.calificacion}'
+
+class Rol(models.Model):
+    nombre_rol = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.nombre_rol
