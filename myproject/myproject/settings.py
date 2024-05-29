@@ -26,11 +26,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ecommerce',    
+    'ecommerce',    #app
     'rest_framework_simplejwt',
-
     'rest_framework',
-    'corsheaders',
+    'corsheaders', #para permisos de cors
 ]
 
 MIDDLEWARE = [
@@ -74,9 +73,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'mercado_libro',
         'USER': 'root',
-        'PASSWORD': 'Ismael07', #Introducir contraseña
+        'PASSWORD': '', #Introducir contraseña
         'HOST': 'localhost',  
-        'PORT': '3307',     
+        'PORT': '3306',    
     }
 }
 
