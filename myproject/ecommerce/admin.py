@@ -16,7 +16,7 @@ class AutorAdmin(admin.ModelAdmin):
 @admin.register(UsuarioCliente)
 class UsuarioClienteAdmin(admin.ModelAdmin):
     list_display = ('id_cliente', 'nombre', 'email')
-    search_fields = ('nombre', 'email')
+    search_fields = ('nombre', 'apellido', 'email')
 
 @admin.register(UsuarioAdministrador)
 class UsuarioAdministradorAdmin(admin.ModelAdmin):

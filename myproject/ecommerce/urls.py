@@ -14,9 +14,4 @@ urlpatterns = [
     path('', include(router.urls)),
     path('api/login/', views.login),
     path('api/registro/', views.registro_usuario, name='registro_usuario'),
-
 ]
-
-
-
-
