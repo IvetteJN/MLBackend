@@ -25,9 +25,4 @@ class UsuarioClienteRegistroSerializer(serializers.ModelSerializer):
 class RolSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rol
-<<<<<<< HEAD
         fields = ('id', 'nombre')
-
-=======
-        fields = ('id', 'nombre')
->>>>>>> 4565132b5fcc061b767ac2f8cb93be7237ccf661

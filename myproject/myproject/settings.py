@@ -78,19 +78,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'mercado_libro',
         'USER': 'root',
-<<<<<<< HEAD
+
         'PASSWORD': 'Leon4350', #Introducir contraseña
-=======
-<<<<<<< HEAD
-        'PASSWORD': 'Argentina15', #Introducir contraseña
->>>>>>> 4565132b5fcc061b767ac2f8cb93be7237ccf661
-        'HOST': 'localhost',  
-        'PORT': '3306',     
-=======
-        'PASSWORD': 'Ismael07', #Introducir contraseña
-        'HOST': 'localhost',  
-        'PORT': '3307',     
->>>>>>> 081a7a0483d6c962b556ce4c2aa6cd0d660da733
+
     }
 }
 
