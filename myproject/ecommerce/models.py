@@ -10,6 +10,7 @@ class Categoria(models.Model):
         verbose_name_plural = 'Categorías'
 
     def __str__(self):
+<<<<<<< HEAD
         return self.nombre_categoria
 
 class Autor(models.Model):
@@ -99,6 +100,9 @@ class FormaPago(models.Model):
 
     def __str__(self):
         return self.descripcion
+=======
+        return self.categoria
+>>>>>>> 4565132b5fcc061b767ac2f8cb93be7237ccf661
 
 class Libro(models.Model):
     id_libro = models.AutoField(primary_key=True)
@@ -158,6 +162,7 @@ class DetallePedido(models.Model):
 class HistorialPedido(models.Model):
     id_historial = models.AutoField(primary_key=True)
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
+<<<<<<< HEAD
     estado_pedido = models.CharField(max_length=50)
     fecha_cambio = models.DateTimeField(auto_now_add=True)
 
@@ -180,3 +185,6 @@ class Reseña(models.Model):
 
     def __str__(self):
         return f'Reseña {self.id_resena} - {self.calificacion}'
+=======
+    cantidad = models.IntegerField()
+>>>>>>> 4565132b5fcc061b767ac2f8cb93be7237ccf661
