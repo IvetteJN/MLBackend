@@ -42,6 +42,24 @@ class RolSerializer(serializers.ModelSerializer):
         fields = ('id', 'rol')
         
 class LibroSerializer(serializers.ModelSerializer):
+<<<<<<< HEAD
+=======
+    class Meta:
+        model = Libro
+        fields = ['id_libro', 'titulo', 'portada', 'categoria','autor', 'descripcion', 'precio', 'stock']
+        
+class CategoriaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Categoria
+        fields = ['id_categoria', 'nombre_categoria',]
+        
+class AutorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Autor
+        fields = ['id_autor', 'nombre']
+        
+class DetallePedidoSerializer(serializers.ModelSerializer):
+>>>>>>> 5df2083ca816fe1d95405ed8221ef65811c84b57
     class Meta:
         model = Libro
         fields = ['id_libro', 'titulo', 'portada', 'categoria','autor', 'descripcion', 'precio', 'stock']

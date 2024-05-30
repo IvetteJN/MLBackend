@@ -117,6 +117,10 @@ class FormaPago(models.Model):
 
     def __str__(self):
         return self.descripcion
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5df2083ca816fe1d95405ed8221ef65811c84b57
 
 
 class Libro(models.Model):
@@ -152,6 +156,11 @@ class LibroAutor(models.Model):
 
         return f'{self.libro.titulo} - {self.autor.nombre}'
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 5df2083ca816fe1d95405ed8221ef65811c84b57
 
 class Pedido(models.Model):
     id_pedido = models.AutoField(primary_key=True)

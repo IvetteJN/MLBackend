@@ -3,6 +3,7 @@ from django.contrib import admin
 from .models import (Categoria, Autor, UsuarioCliente, UsuarioAdministrador, 
 Direccion, FormaEnvio, FormaPago, Pedido, HistorialPedido, Reseña, Libro, LibroAutor, DetallePedido)
 
+#esto está bien
 @admin.register(Categoria)
 class CategoriaAdmin(admin.ModelAdmin):
     list_display = ('id_categoria', 'nombre_categoria')
@@ -11,7 +12,7 @@ class CategoriaAdmin(admin.ModelAdmin):
 @admin.register(Autor)
 class AutorAdmin(admin.ModelAdmin):
     list_display = ('id_autor', 'nombre')
-    search_fields = ('nombre', 'apellido')
+    search_fields = ('nombre',)
 
 @admin.register(UsuarioCliente)
 class UsuarioClienteAdmin(admin.ModelAdmin):
@@ -46,7 +47,7 @@ class PedidoAdmin(admin.ModelAdmin):
 
 @admin.register(HistorialPedido)
 class HistorialPedidoAdmin(admin.ModelAdmin):
-    list_display = ('id_historial', 'pedido', 'estado_pedido', 'fecha_cambio')
+    list_display = ('id_historial', 'estado_pedido', 'fecha_cambio')
     search_fields = ('pedido__id_pedido', 'estado_pedido')
     list_filter = ('estado_pedido', 'fecha_cambio')
 
@@ -56,20 +57,12 @@ class ResenaAdmin(admin.ModelAdmin):
     search_fields = ('libro__titulo', 'usuario_cliente__nombre', 'calificacion')
     list_filter = ('calificacion', 'fecha_resena')
 
+#Esto está bien
 @admin.register(Libro)
 class LibroAdmin(admin.ModelAdmin):
-    list_display = ('id_libro', 'titulo', 'portada', 'precio', 'stock', 'categoria', 'descripcion')
+    list_display = ('id_libro', 'titulo', 'portada', 'categoria', 'descripcion', 'precio', 'stock')
     search_fields = ('titulo', 'precio')
     list_filter = ('categoria',)
-
-    #def get_portada(self, obj):
-     #   if obj.portada:
-      #      return mark_safe(f'<img src="{obj.portada.url}" width="100">')
-       # else:
-        #    return 'No hay imagen'
-
-#    get_portada.short_description = 'Portada'
- #   get_portada.allow_tags = True
 
 @admin.register(LibroAutor)
 class LibroAutorAdmin(admin.ModelAdmin):
