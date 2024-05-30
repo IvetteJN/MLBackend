@@ -55,3 +55,8 @@ class AutorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Autor
         fields = ['id_autor', 'nombre']
+        
+class DetallePedidoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DetallePedido
+        fields = '__all__'
