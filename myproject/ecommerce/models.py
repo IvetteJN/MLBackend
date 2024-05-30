@@ -26,7 +26,7 @@ class Autor(models.Model):
 
 
 class Rol(models.Model):
-    rol = models.CharField(default= 'cliente', max_length=100)
+    rol = models.CharField(default='cliente', max_length=100)
     description = models.TextField(default='No description')
 
     class Meta:
@@ -112,22 +112,22 @@ class FormaPago(models.Model):
         return self.categoria
 
 
+
 class Libro(models.Model):
     id_libro = models.AutoField(primary_key=True)
     titulo = models.CharField(max_length=255)
     portada = models.ImageField(
         'Portada', upload_to='portadas/', default='No disponible')
+    portada = models.ImageField(
+        'Portada', upload_to='portadas/', default='No disponible')
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     descripcion = models.CharField(
         'Descripcion', max_length=1000, default='No disponible')
-    precio = models.DecimalField(max_digits=10, decimal_places=2)
-    stock = models.IntegerField()
-
-    class Meta:
         db_table = 'libro'
 
     def __str__(self):
         return self.titulo
+
 
 
 class LibroAutor(models.Model):
@@ -139,15 +139,25 @@ class LibroAutor(models.Model):
         unique_together = (('libro', 'autor'),)
 
     def __str__(self):
-        return f'{self.libro.titulo} - {self.autor.nombre} {self.autor.apellido}'
+        return f'{self.libro.titulo} - {self.autor.nombre}'
+
+
 
 
 class Pedido(models.Model):
     id_pedido = models.AutoField(primary_key=True)
     usuario_cliente = models.ForeignKey(
         UsuarioCliente, on_delete=models.CASCADE, null=True, blank=True)
+    usuario_cliente = models.ForeignKey(
+        UsuarioCliente, on_delete=models.CASCADE, null=True, blank=True)
     estado_pedido = models.CharField(max_length=50)
     fecha_pedido = models.DateTimeField(auto_now_add=True)
+    direccion_envio = models.ForeignKey(
+        Direccion, on_delete=models.SET_NULL, null=True)
+    forma_envio = models.ForeignKey(
+        FormaEnvio, on_delete=models.SET_NULL, null=True)
+    forma_pago = models.ForeignKey(
+        FormaPago, on_delete=models.SET_NULL, null=True)
     direccion_envio = models.ForeignKey(
         Direccion, on_delete=models.SET_NULL, null=True)
     forma_envio = models.ForeignKey(
@@ -162,13 +172,15 @@ class Pedido(models.Model):
         return f'Pedido {self.id_pedido}'
 
 
+
 class DetallePedido(models.Model):
     id_detalle = models.AutoField(primary_key=True)
-    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, null=True, blank=True)
     libro = models.ForeignKey(Libro, on_delete=models.CASCADE)
     cantidad = models.IntegerField()
     precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
     precio_total = models.DecimalField(max_digits=10, decimal_places=2)
+    is_cart = models.BooleanField(default=True)  # Añadir este campo
 
     class Meta:
         db_table = 'detalle_pedido'
@@ -179,8 +191,7 @@ class DetallePedido(models.Model):
 
 class HistorialPedido(models.Model):
     id_historial = models.AutoField(primary_key=True)
-    pedido_id = models.ForeignKey(Pedido, on_delete=models.CASCADE)
-    estado_pedido = models.CharField(max_length=50)
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     fecha_cambio = models.DateTimeField(auto_now_add=True)
 
     class Meta:
