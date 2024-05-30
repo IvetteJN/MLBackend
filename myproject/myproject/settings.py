@@ -79,14 +79,16 @@ DATABASES = {
         'NAME': 'mercado_libro',
         'NAME': 'mercado_libro',
         'USER': 'root',
+<<<<<<< HEAD
         'PASSWORD': 'Leon4350', #Introducir contraseña
         'HOST': 'localhost',  
         'PORT': '3306',     
 =======
+=======
+>>>>>>> 1c90a95286c007ddbc5aa4f9d977c650c0825875
         'PASSWORD': 'Ismael07', #Introducir contraseña
         'HOST': 'localhost',  
-        'PORT': '3307',     
->>>>>>> 081a7a0483d6c962b556ce4c2aa6cd0d660da733
+        'PORT': '3307',    
     }
 }
 
