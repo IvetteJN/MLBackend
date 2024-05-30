@@ -119,6 +119,7 @@ class FormaPago(models.Model):
         return self.descripcion
 
 
+
 class Libro(models.Model):
     id_libro = models.AutoField(primary_key=True)
     titulo = models.CharField(max_length=255)
@@ -151,6 +152,8 @@ class LibroAutor(models.Model):
         return f'{self.libro.titulo} - {self.autor.nombre}'
 
         return f'{self.libro.titulo} - {self.autor.nombre}'
+
+
 
 
 class Pedido(models.Model):
