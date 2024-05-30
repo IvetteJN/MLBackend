@@ -9,7 +9,7 @@ class HistorialPedidoSerializer(serializers.ModelSerializer):
 class UsuarioClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = UsuarioCliente
-        fields = ('nombre', 'email', 'contrasena')
+        fields = ('id_cliente','nombre', 'email', 'contrasena')
 
 class UsuarioAdministradorSerializer(serializers.ModelSerializer):
     class Meta:
