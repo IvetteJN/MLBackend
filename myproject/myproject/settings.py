@@ -71,11 +71,11 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mercado_libro',
+        'NAME': 'mercadolibro',
         'USER': 'root',
         'PASSWORD': '', #Introducir contraseña
         'HOST': 'localhost',  
-        'PORT': '3307',    
+        'PORT': '3306',    
     }
 }
 
