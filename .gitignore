@@ -8,3 +8,10 @@ mercadolibro
 #pychache
 /myproject/__pycache__
 /myproject/myproject/__pycache__
+
+#requirements
+/myproject/requirements.txt
+
+#pycache
+/myproject/myproject/__pycache__
+/myproject/ecommerce/__pycache__
