@@ -1,6 +1,7 @@
 from django.db import models
 
 
+
 class Categoria(models.Model):
     id_categoria = models.AutoField(primary_key=True) 
     nombre_categoria = models.CharField(max_length=100, unique=True)
@@ -12,6 +13,7 @@ class Categoria(models.Model):
         return f'{self.nombre_categoria}'
 
 
+
 class Autor(models.Model):
     id_autor = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=200)
@@ -21,6 +23,7 @@ class Autor(models.Model):
 
     def __str__(self):
         return f'{self.nombre}'
+
 
 
 class Rol(models.Model):
@@ -48,6 +51,7 @@ class UsuarioCliente(models.Model):
         return f'{self.nombre}'
 
 
+
 class UsuarioAdministrador(models.Model):
     id_admin = models.AutoField(primary_key=True)
     usuario = models.CharField(max_length=100, unique=True)
@@ -69,12 +73,16 @@ class UsuarioAdministrador(models.Model):
             print("No tienes permisos para otorgar permisos.")
 
 
+
+
 class Direccion(models.Model):
     id_direccion = models.AutoField(primary_key=True)
     usuario_cliente = models.ForeignKey(
         UsuarioCliente, on_delete=models.CASCADE, null=True, blank=True)
     direccion = models.CharField(max_length=255)
     ciudad = models.CharField(max_length=100)
+    provincia = models.CharField(
+        'Provincia', max_length=100, default='Desconocido')
     provincia = models.CharField(
         'Provincia', max_length=100, default='Desconocido')
     codigo_postal = models.CharField(max_length=20)
@@ -87,6 +95,7 @@ class Direccion(models.Model):
         return self.direccion
 
 
+
 class FormaEnvio(models.Model):
     id_forma_envio = models.AutoField(primary_key=True)
     descripcion = models.CharField(max_length=100)
@@ -96,6 +105,7 @@ class FormaEnvio(models.Model):
 
     def __str__(self):
         return self.descripcion
+
 
 
 class FormaPago(models.Model):
@@ -128,6 +138,7 @@ class Libro(models.Model):
         return self.titulo
 
 
+
 class LibroAutor(models.Model):
     libro = models.ForeignKey(Libro, on_delete=models.CASCADE)
     autor = models.ForeignKey(Autor, on_delete=models.CASCADE)
@@ -139,13 +150,23 @@ class LibroAutor(models.Model):
     def __str__(self):
         return f'{self.libro.titulo} - {self.autor.nombre}'
 
+        return f'{self.libro.titulo} - {self.autor.nombre}'
+
 
 class Pedido(models.Model):
     id_pedido = models.AutoField(primary_key=True)
     usuario_cliente = models.ForeignKey(
         UsuarioCliente, on_delete=models.CASCADE, null=True, blank=True)
+    usuario_cliente = models.ForeignKey(
+        UsuarioCliente, on_delete=models.CASCADE, null=True, blank=True)
     estado_pedido = models.CharField(max_length=50)
     fecha_pedido = models.DateTimeField(auto_now_add=True)
+    direccion_envio = models.ForeignKey(
+        Direccion, on_delete=models.SET_NULL, null=True)
+    forma_envio = models.ForeignKey(
+        FormaEnvio, on_delete=models.SET_NULL, null=True)
+    forma_pago = models.ForeignKey(
+        FormaPago, on_delete=models.SET_NULL, null=True)
     direccion_envio = models.ForeignKey(
         Direccion, on_delete=models.SET_NULL, null=True)
     forma_envio = models.ForeignKey(
@@ -160,13 +181,15 @@ class Pedido(models.Model):
         return f'Pedido {self.id_pedido}'
 
 
+
 class DetallePedido(models.Model):
     id_detalle = models.AutoField(primary_key=True)
-    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, null=True, blank=True)
     libro = models.ForeignKey(Libro, on_delete=models.CASCADE)
     cantidad = models.IntegerField()
     precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
     precio_total = models.DecimalField(max_digits=10, decimal_places=2)
+    is_cart = models.BooleanField(default=True)  # Añadir este campo
 
     class Meta:
         db_table = 'detalle_pedido'
