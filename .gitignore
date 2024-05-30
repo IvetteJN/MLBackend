@@ -8,3 +8,7 @@ mercadolibro-env
 
 #requirements
 /myproject/requirements.txt
+
+#pycache
+/myproject/myproject/__pycache__
+/myproject/ecommerce/__pycache__
