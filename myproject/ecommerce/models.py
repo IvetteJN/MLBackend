@@ -26,7 +26,7 @@ class Autor(models.Model):
 
 
 class Rol(models.Model):
-    rol = models.CharField(max_length=100)
+    rol = models.CharField(default='cliente', max_length=100)
     description = models.TextField(default='No description')
 
     class Meta:
@@ -164,17 +164,19 @@ class Pedido(models.Model):
 
 class DetallePedido(models.Model):
     id_detalle = models.AutoField(primary_key=True)
-    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, null=True, blank=True)
     libro = models.ForeignKey(Libro, on_delete=models.CASCADE)
     cantidad = models.IntegerField()
     precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
     precio_total = models.DecimalField(max_digits=10, decimal_places=2)
+    is_cart = models.BooleanField(default=True)  # Añadir este campo
 
     class Meta:
         db_table = 'detalle_pedido'
 
     def __str__(self):
         return f'{self.cantidad} x {self.libro.titulo}'
+
 
 
 class HistorialPedido(models.Model):
@@ -202,9 +204,3 @@ class Reseña(models.Model):
 
     def __str__(self):
         return f'Reseña {self.id_resena} - {self.calificacion}'
-
-class Rol(models.Model):
-    nombre_rol = models.CharField(max_length=50, unique=True)
-
-    def __str__(self):
-        return self.nombre_rol

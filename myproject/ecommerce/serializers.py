@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import UsuarioCliente, UsuarioAdministrador, Rol
-from .models import HistorialPedido
+from .models import HistorialPedido, DetallePedido
 
 
 class HistorialPedidoSerializer (serializers.ModelSerializer):
@@ -31,3 +31,8 @@ class RolSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rol
         fields = ('id', 'rol')
+
+class DetallePedidoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DetallePedido
+        fields = '__all__'
