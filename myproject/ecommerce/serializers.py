@@ -40,7 +40,7 @@ class LibroSerializer(serializers.ModelSerializer):
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categoria
-        fields = ['id_categoria', 'nombre_categoria']
+        fields = ['id_categoria', 'nombre_categoria',]
         
 class AutorSerializer(serializers.ModelSerializer):
     class Meta:

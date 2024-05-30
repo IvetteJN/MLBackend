@@ -2,16 +2,14 @@ from django.db import models
 
 
 class Categoria(models.Model):
-    id_categoria = models.AutoField(primary_key=True)
+    id_categoria = models.AutoField(primary_key=True) 
     nombre_categoria = models.CharField(max_length=100, unique=True)
 
     class Meta:
         db_table = 'categoria'
-        verbose_name = 'Categoría'
-        verbose_name_plural = 'Categorías'
 
     def __str__(self):
-        return self.nombre_categoria
+        return f'{self.nombre_categoria}'
 
 
 class Autor(models.Model):
@@ -116,7 +114,7 @@ class Libro(models.Model):
     titulo = models.CharField(max_length=255)
     portada = models.ImageField(
         'Portada', upload_to='portadas/', default='No disponible')
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+    categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True)
     descripcion = models.CharField(
         'Descripcion', max_length=1000, default='No disponible')
     precio = models.DecimalField(max_digits=10, decimal_places=2)
