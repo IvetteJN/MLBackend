@@ -1,4 +1,10 @@
 #entorno virtual
 /mercadolibro-env
+/mercadolibro
+mercadolibro
+
 #Archivos 2023
 /Backend 2023
+
+#requirements
+/myproject/requirements.txt
