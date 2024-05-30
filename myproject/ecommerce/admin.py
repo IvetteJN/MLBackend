@@ -1,7 +1,6 @@
 from django.contrib import admin
-from django.contrib import admin
 from .models import (Categoria, Autor, UsuarioCliente, UsuarioAdministrador, 
-Direccion, FormaEnvio, FormaPago, Pedido, HistorialPedido, Reseña, Libro, LibroAutor, DetallePedido)
+Direccion, FormaEnvio, FormaPago, Pedido, HistorialPedido, Reseña, Libro, DetallePedido)
 
 @admin.register(Categoria)
 class CategoriaAdmin(admin.ModelAdmin):
@@ -16,7 +15,7 @@ class AutorAdmin(admin.ModelAdmin):
 @admin.register(UsuarioCliente)
 class UsuarioClienteAdmin(admin.ModelAdmin):
     list_display = ('id_cliente', 'nombre', 'email')
-    search_fields = ('nombre', 'email')
+    search_fields = ('nombre', 'apellido', 'email')
 
 @admin.register(UsuarioAdministrador)
 class UsuarioAdministradorAdmin(admin.ModelAdmin):
@@ -58,23 +57,9 @@ class ResenaAdmin(admin.ModelAdmin):
 
 @admin.register(Libro)
 class LibroAdmin(admin.ModelAdmin):
-    list_display = ('id_libro', 'titulo', 'portada', 'precio', 'stock', 'categoria', 'descripcion')
+    list_display = ('id_libro', 'titulo', 'portada', 'categoria', 'descripcion', 'precio', 'stock', 'autor')
     search_fields = ('titulo', 'precio')
     list_filter = ('categoria',)
-
-    #def get_portada(self, obj):
-     #   if obj.portada:
-      #      return mark_safe(f'<img src="{obj.portada.url}" width="100">')
-       # else:
-        #    return 'No hay imagen'
-
-#    get_portada.short_description = 'Portada'
- #   get_portada.allow_tags = True
-
-@admin.register(LibroAutor)
-class LibroAutorAdmin(admin.ModelAdmin):
-    list_display = ('libro', 'autor')
-    search_fields = ('libro__titulo', 'autor__nombre')
 
 @admin.register(DetallePedido)
 class DetallePedidoAdmin(admin.ModelAdmin):
