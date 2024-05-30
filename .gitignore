@@ -1,9 +1,6 @@
 #entorno virtual
-/mercadolibro-env
-mercadolibro
-/backend/mercadolibro
-#Archivos 2023
-/Backend 2023
+/mercadolibro
 
-#requirements
-/myproject/requirements.txt
+#pychache
+myproject/ecommerce/__pycache__
+myproject/myproject/__pycache__
