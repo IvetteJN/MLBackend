@@ -121,6 +121,7 @@ class Libro(models.Model):
         'Descripcion', max_length=1000, default='No disponible')
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.IntegerField()
+    autor = models.ForeignKey(Autor, on_delete=models.SET_NULL, null=True)
 
     class Meta:
         db_table = 'libro'

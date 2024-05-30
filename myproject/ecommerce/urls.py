@@ -9,6 +9,7 @@ router.register(r'api/clientes', views.UsuarioClienteViewSet)
 router.register(r'api/administradores', views.UsuarioAdministradorViewSet)
 router.register(r'api/libros', views.LibroViewSet)
 router.register(r'api/categoria', views.CategoriaViewSet)
+router.register(r'api/autor', views.AutorViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -18,5 +19,6 @@ urlpatterns = [
     # path('productos/create/', CreateProductoView.as_view(), name='create_producto'),
     path('api/libros/', views.list_libro, name='list_libros'),
     path('api/categoria/', views.list_categoria, name='list_categoria'),
+    
     
 ]

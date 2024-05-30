@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import UsuarioCliente, UsuarioAdministrador, Rol, Libro
+from .models import UsuarioCliente, UsuarioAdministrador, Rol, Libro, Autor
 from .models import HistorialPedido, Categoria
 
 
@@ -35,9 +35,14 @@ class RolSerializer(serializers.ModelSerializer):
 class LibroSerializer(serializers.ModelSerializer):
     class Meta:
         model = Libro
-        fields = ['id_libro', 'titulo', 'portada', 'categoria', 'descripcion', 'precio', 'stock']
+        fields = ['id_libro', 'titulo', 'portada', 'categoria','autor', 'descripcion', 'precio', 'stock']
         
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categoria
         fields = ['id_categoria', 'nombre_categoria']
+        
+class AutorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Autor
+        fields = ['id_autor', 'nombre']

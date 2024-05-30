@@ -2,8 +2,8 @@ from rest_framework import status, viewsets
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import UsuarioCliente, UsuarioAdministrador, Rol, HistorialPedido, Libro, Categoria
-from .serializers import UsuarioClienteSerializer, UsuarioAdministradorSerializer, RolSerializer, HistorialPedidoSerializer, LibroSerializer, CategoriaSerializer
+from .models import UsuarioCliente, UsuarioAdministrador, Rol, HistorialPedido, Libro, Categoria, Autor
+from .serializers import UsuarioClienteSerializer, UsuarioAdministradorSerializer, RolSerializer, HistorialPedidoSerializer, LibroSerializer, CategoriaSerializer, AutorSerializer
 from django.shortcuts import render
 
 class HistorialPedidoSet(viewsets.ModelViewSet):
@@ -70,6 +70,8 @@ def list_libro(request):
 class LibroViewSet(viewsets.ModelViewSet):
     queryset = Libro.objects.all()
     serializer_class = LibroSerializer
+    
+    
 
 @api_view(['POST'])
 def list_categoria(request):
@@ -82,3 +84,16 @@ def list_categoria(request):
 class CategoriaViewSet(viewsets.ModelViewSet):
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
+    
+    
+@api_view(['POST'])
+def list_autor(request):
+    serializer = AutorSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class AutorViewSet(viewsets.ModelViewSet):
+    queryset = Autor.objects.all()
+    serializer_class = AutorSerializer
