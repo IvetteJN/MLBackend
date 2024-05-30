@@ -4,3 +4,7 @@ mercadolibro
 /backend/mercadolibro
 #Archivos 2023
 /Backend 2023
+
+#pychache
+/myproject/__pycache__
+/myproject/myproject/__pycache__
