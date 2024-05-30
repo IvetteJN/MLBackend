@@ -1,9 +1,7 @@
 from django.contrib import admin
-from django.contrib import admin
 from .models import (Categoria, Autor, UsuarioCliente, UsuarioAdministrador, 
-Direccion, FormaEnvio, FormaPago, Pedido, HistorialPedido, Reseña, Libro, LibroAutor, DetallePedido)
+Direccion, FormaEnvio, FormaPago, Pedido, HistorialPedido, Reseña, Libro, DetallePedido)
 
-#esto está bien
 @admin.register(Categoria)
 class CategoriaAdmin(admin.ModelAdmin):
     list_display = ('id_categoria', 'nombre_categoria')
@@ -57,17 +55,11 @@ class ResenaAdmin(admin.ModelAdmin):
     search_fields = ('libro__titulo', 'usuario_cliente__nombre', 'calificacion')
     list_filter = ('calificacion', 'fecha_resena')
 
-#Esto está bien
 @admin.register(Libro)
 class LibroAdmin(admin.ModelAdmin):
-    list_display = ('id_libro', 'titulo', 'portada', 'categoria', 'descripcion', 'precio', 'stock')
+    list_display = ('id_libro', 'titulo', 'portada', 'categoria', 'descripcion', 'precio', 'stock', 'autor')
     search_fields = ('titulo', 'precio')
     list_filter = ('categoria',)
-
-@admin.register(LibroAutor)
-class LibroAutorAdmin(admin.ModelAdmin):
-    list_display = ('libro', 'autor')
-    search_fields = ('libro__titulo', 'autor__nombre')
 
 @admin.register(DetallePedido)
 class DetallePedidoAdmin(admin.ModelAdmin):

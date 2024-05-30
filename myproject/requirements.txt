@@ -15,4 +15,9 @@ wheel==0.43.0
 
 # procedimiento:
 # python -m venv mercadolibro
+# mercadolibro/Scripts/activate
+# cd myproject
 # pip install -r requirements.txt
+# python manage.py makemigrations
+# python manage.py migrate
+# python manage.py runserver
