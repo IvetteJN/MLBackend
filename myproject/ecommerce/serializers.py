@@ -9,37 +9,40 @@ class HistorialPedidoSerializer(serializers.ModelSerializer):
 class UsuarioClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = UsuarioCliente
-        fields = ('id_cliente','nombre', 'email', 'contrasena')
+        fields = '__all__'
 
 class UsuarioAdministradorSerializer(serializers.ModelSerializer):
     class Meta:
         model = UsuarioAdministrador
-        fields = ('id_admin', 'usuario', 'contrasena')
+        fields = '__all__'
 
 class UsuarioClienteRegistroSerializer(serializers.ModelSerializer):
     class Meta:
         model = UsuarioCliente
-        fields = ('nombre', 'email', 'contrasena')
+        fields = '__all__'
 
 class RolSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rol
-        fields = ('id', 'rol')
+        fields = '__all__'
 
-class LibroSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Libro
-        fields = ['id_libro', 'titulo', 'portada', 'categoria', 'autor', 'descripcion', 'precio', 'stock']
 
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categoria
-        fields = ['id_categoria', 'nombre_categoria']
+        fields = '__all__'
 
 class AutorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Autor
-        fields = ['id_autor', 'nombre']
+        fields = '__all__'
+
+class LibroSerializer(serializers.ModelSerializer):
+    id_libro = serializers.ReadOnlyField()
+
+    class Meta:
+        model = Libro
+        fields = '__all__'
 
 class DetallePedidoSerializer(serializers.ModelSerializer):
     class Meta:

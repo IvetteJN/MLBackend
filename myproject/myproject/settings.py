@@ -70,7 +70,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'mercado_libro',
         'USER': 'root',
-        'PASSWORD': '1234', #Introducir contraseña
+        'PASSWORD': 'Ismael07', #Introducir contraseña
         'HOST': 'localhost',  
         'PORT': '3307',    
     }
@@ -117,9 +117,13 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Media files (User uploaded content)
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# Configuración de archivos estáticos
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Configuración de archivos multimedia
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

@@ -57,7 +57,7 @@ class ResenaAdmin(admin.ModelAdmin):
 
 @admin.register(Libro)
 class LibroAdmin(admin.ModelAdmin):
-    list_display = ('id_libro', 'titulo', 'portada', 'categoria', 'descripcion', 'precio', 'stock', 'autor')
+    list_display = ('id_libro', 'titulo', 'portada', 'categoria', 'autor', 'descripcion', 'precio', 'stock')
     search_fields = ('titulo', 'precio')
     list_filter = ('categoria',)
 

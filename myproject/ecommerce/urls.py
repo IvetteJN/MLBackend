@@ -1,6 +1,9 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from ecommerce import views
+from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 
 router = DefaultRouter()
 router.register(r'historialPedidos', views.HistorialPedidoSet)
@@ -19,3 +22,7 @@ urlpatterns = [
     path('api/autor/', views.list_autor, name='list_autor'),
     path('api/categoria/', views.list_categoria, name='list_categoria'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
