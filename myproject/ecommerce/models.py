@@ -101,7 +101,7 @@ class Libro(models.Model):
     id_libro = models.AutoField(primary_key=True)
     titulo = models.CharField(max_length=255)
     portada = models.ImageField('Portada', upload_to='portadas/', default='No disponible')
-    categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True, related_name='libros')
+    categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True)
     descripcion = models.CharField('Descripcion', max_length=1000, default='No disponible')
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.IntegerField()
@@ -111,7 +111,7 @@ class Libro(models.Model):
         db_table = 'libro'
 
     def __str__(self):
-        return self.titulo
+        return f'{self.titulo}'
 
 class Pedido(models.Model):
     id_pedido = models.AutoField(primary_key=True)

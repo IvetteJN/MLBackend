@@ -26,10 +26,6 @@ class RolSerializer(serializers.ModelSerializer):
         model = Rol
         fields = ('id', 'rol')
 
-class LibroSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Libro
-        fields = ['id_libro', 'titulo', 'portada', 'categoria', 'autor', 'descripcion', 'precio', 'stock']
 
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -40,6 +36,11 @@ class AutorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Autor
         fields = ['id_autor', 'nombre']
+
+class LibroSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Libro
+        fields = ['id_libro', 'titulo', 'portada', 'categoria', 'autor', 'descripcion', 'precio', 'stock']
 
 class DetallePedidoSerializer(serializers.ModelSerializer):
     class Meta:
