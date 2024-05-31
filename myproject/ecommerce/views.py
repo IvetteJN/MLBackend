@@ -1,6 +1,8 @@
 from rest_framework import status, viewsets, permissions
 from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
+from django.db.models import Q
+from rest_framework.generics import RetrieveAPIView
 from .models import UsuarioCliente, UsuarioAdministrador, Rol, HistorialPedido, DetallePedido, Libro, Categoria, Autor
 from .serializers import UsuarioClienteSerializer, UsuarioAdministradorSerializer, RolSerializer, HistorialPedidoSerializer, DetallePedidoSerializer, LibroSerializer, CategoriaSerializer, AutorSerializer
 
@@ -65,11 +67,25 @@ def list_libro(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class LibroViewSet(viewsets.ModelViewSet):
     queryset = Libro.objects.all()
     serializer_class = LibroSerializer
     
-    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        termino = self.request.query_params.get('termino', None)
+        categoria = self.request.query_params.get('categoria', None)
+        
+        if termino:
+            queryset = queryset.filter(Q(titulo__icontains=termino) | Q(descripcion__icontains=termino))
+        
+        if categoria:
+            queryset = queryset.filter(categoria__nombre_categoria=categoria)
+        
+        return queryset
+
+
 
 @api_view(['POST'])
 def list_categoria(request):
