@@ -1,6 +1,13 @@
 from django.contrib import admin
 from .models import (Categoria, Autor, UsuarioCliente, UsuarioAdministrador, 
-Direccion, FormaEnvio, FormaPago, Pedido, HistorialPedido, Reseña, Libro, DetallePedido)
+                     Direccion, FormaEnvio, FormaPago, Pedido, HistorialPedido, 
+                     Reseña, Libro, DetallePedido, Rol)
+
+
+@admin.register(Rol)
+class RolAdmin(admin.ModelAdmin):
+    list_display = ('rol', 'description')
+    search_fields = ('rol',)
 
 @admin.register(Categoria)
 class CategoriaAdmin(admin.ModelAdmin):
@@ -15,7 +22,7 @@ class AutorAdmin(admin.ModelAdmin):
 @admin.register(UsuarioCliente)
 class UsuarioClienteAdmin(admin.ModelAdmin):
     list_display = ('id_cliente', 'nombre', 'email')
-    search_fields = ('nombre', 'apellido', 'email')
+    search_fields = ('nombre', 'email')
 
 @admin.register(UsuarioAdministrador)
 class UsuarioAdministradorAdmin(admin.ModelAdmin):
@@ -40,12 +47,12 @@ class FormaPagoAdmin(admin.ModelAdmin):
 @admin.register(Pedido)
 class PedidoAdmin(admin.ModelAdmin):
     list_display = ('id_pedido', 'usuario_cliente', 'estado_pedido', 'fecha_pedido', 'direccion_envio', 'forma_envio', 'forma_pago')
-    search_fields = ('usuario_cliente__nombre', 'estado_pedido', 'fecha_pedido')
+    search_fields = ('usuario_cliente__nombre', 'estado_pedido')
     list_filter = ('estado_pedido', 'fecha_pedido', 'forma_envio', 'forma_pago')
 
 @admin.register(HistorialPedido)
 class HistorialPedidoAdmin(admin.ModelAdmin):
-    list_display = ('id_historial', 'estado_pedido', 'fecha_cambio')
+    list_display = ('id_historial', 'pedido', 'estado_pedido', 'fecha_cambio')
     search_fields = ('pedido__id_pedido', 'estado_pedido')
     list_filter = ('estado_pedido', 'fecha_cambio')
 
@@ -66,3 +73,4 @@ class DetallePedidoAdmin(admin.ModelAdmin):
     list_display = ('id_detalle', 'pedido', 'libro', 'cantidad', 'precio_unitario', 'precio_total')
     search_fields = ('pedido__id_pedido', 'libro__titulo')
     list_filter = ('pedido',)
+
