@@ -1,5 +1,16 @@
 from django.db import models
 
+class Rol(models.Model):
+    id_rol = models.AutoField(primary_key=True)
+    rol = models.CharField(default='cliente', max_length=100)
+    description = models.TextField(default='No description')
+
+    class Meta:
+        db_table = 'rol'
+
+    def __str__(self):
+        return f'{self.rol}'
+
 class Categoria(models.Model):
     id_categoria = models.AutoField(primary_key=True)
     nombre_categoria = models.CharField(max_length=100)
@@ -20,22 +31,11 @@ class Autor(models.Model):
     def __str__(self):
         return f'{self.nombre}'
 
-class Rol(models.Model):
-    rol = models.CharField(default='cliente', max_length=100)
-    description = models.TextField(default='No description')
-
-    class Meta:
-        db_table = 'rol'
-
-    def __str__(self):
-        return self.rol
-
 class UsuarioCliente(models.Model):
     id_cliente = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=200)
     email = models.EmailField(unique=True)
     contrasena = models.CharField(max_length=255)
-    roles = models.ManyToManyField(Rol)
 
     class Meta:
         db_table = 'usuario_cliente'

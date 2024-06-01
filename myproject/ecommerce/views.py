@@ -5,6 +5,14 @@ from django.db.models import Q
 from rest_framework.generics import RetrieveAPIView
 from .models import UsuarioCliente, UsuarioAdministrador, Rol, HistorialPedido, DetallePedido, Libro, Categoria, Autor
 from .serializers import UsuarioClienteSerializer, UsuarioAdministradorSerializer, RolSerializer, HistorialPedidoSerializer, DetallePedidoSerializer, LibroSerializer, CategoriaSerializer, AutorSerializer
+from .models import (Categoria, Autor, UsuarioCliente, UsuarioAdministrador,
+                     Direccion, FormaEnvio, FormaPago, Pedido, HistorialPedido,
+                     Reseña, Libro, DetallePedido, Rol)
+from .serializers import (CategoriaSerializer, AutorSerializer, UsuarioClienteSerializer,
+                          UsuarioAdministradorSerializer, DireccionSerializer, FormaEnvioSerializer,
+                          FormaPagoSerializer, LibroSerializer, PedidoSerializer, DetallePedidoSerializer,
+                          HistorialPedidoSerializer, ReseñaSerializer, RolSerializer)
+
 
 class HistorialPedidoSet(viewsets.ModelViewSet):
     queryset=HistorialPedido.objects.all()
