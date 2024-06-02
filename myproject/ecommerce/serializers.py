@@ -73,6 +73,7 @@ class DetallePedidoSerializer(serializers.ModelSerializer):
         model = DetallePedido
         fields = '__all__'
 
+
 class HistorialPedidoSerializer(serializers.ModelSerializer):
     class Meta:
         model = HistorialPedido
@@ -86,4 +87,12 @@ class ReseñaSerializer(serializers.ModelSerializer):
 class RolSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rol
+        fields = '__all__'
+
+
+
+
+class DetallePedidoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DetallePedido
         fields = '__all__'

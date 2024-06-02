@@ -3,8 +3,6 @@ from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
 from django.db.models import Q
 from rest_framework.generics import RetrieveAPIView
-from .models import UsuarioCliente, UsuarioAdministrador, Rol, HistorialPedido, DetallePedido, Libro, Categoria, Autor
-from .serializers import UsuarioClienteSerializer, UsuarioAdministradorSerializer, RolSerializer, HistorialPedidoSerializer, DetallePedidoSerializer, LibroSerializer, CategoriaSerializer, AutorSerializer
 from .models import (Categoria, Autor, UsuarioCliente, UsuarioAdministrador,
                      Direccion, FormaEnvio, FormaPago, Pedido, HistorialPedido,
                      Reseña, Libro, DetallePedido, Rol)
@@ -12,6 +10,7 @@ from .serializers import (CategoriaSerializer, AutorSerializer, UsuarioClienteSe
                           UsuarioAdministradorSerializer, DireccionSerializer, FormaEnvioSerializer,
                           FormaPagoSerializer, LibroSerializer, PedidoSerializer, DetallePedidoSerializer,
                           HistorialPedidoSerializer, ReseñaSerializer, RolSerializer)
+
 
 
 class HistorialPedidoSet(viewsets.ModelViewSet):
@@ -120,3 +119,69 @@ class AutorViewSet(viewsets.ModelViewSet):
     queryset = Autor.objects.all()
     serializer_class = AutorSerializer
     
+class CarritoViewSet(viewsets.ModelViewSet):
+   
+    serializer_class = DetallePedidoSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return self.queryset.filter(pedido__usuario_cliente=self.request.user)
+
+    @action(detail=False, methods=['post'])
+    def agregar(self, request):
+        libro_id = request.data.get('libro_id')
+        cantidad = request.data.get('cantidad', 1)
+        libro = Libro.objects.get(id=libro_id)
+        precio_unitario = libro.precio
+
+        detalle_pedido, created = DetallePedido.objects.get_or_create(
+            libro=libro,
+           
+            defaults={
+                'cantidad': cantidad,
+                'precio_unitario': precio_unitario,
+                'precio_total': precio_unitario * cantidad,
+            }
+        )
+        if not created:
+            detalle_pedido.cantidad += cantidad
+            detalle_pedido.precio_total = detalle_pedido.precio_unitario * detalle_pedido.cantidad
+            detalle_pedido.save()
+
+        serializer = self.get_serializer(detalle_pedido)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['post'])
+    def eliminar(self, request):
+        libro_id = request.data.get('libro_id')
+        libro = Libro.objects.get(id=libro_id)
+
+        try:
+            detalle_pedido = DetallePedido.objects.get(libro=libro)
+            detalle_pedido.delete()
+            return Response(status=204)
+        except DetallePedido.DoesNotExist:
+            return Response({"error": "Item no encontrado en el carrito"}, status=404)
+
+
+
+@api_view(['GET'])
+def detalle_pedido_por_cliente(request, cliente_id):
+    try:
+        cliente = UsuarioCliente.objects.get(id_cliente=cliente_id)
+    except UsuarioCliente.DoesNotExist:
+        return Response({"message": "Cliente no encontrado"}, status=404)
+
+    
+    detalles_pedidos = DetallePedido.objects.filter(pedido__usuario_cliente=cliente).values(
+        'pedido__usuario_cliente__id_cliente',
+        'pedido__usuario_cliente__nombre',
+        'pedido__direccion_envio__direccion',
+        'pedido__estado_pedido',
+        'pedido__fecha_pedido',
+        'libro__titulo',
+        'cantidad',
+        'precio_total'
+    )
+
+    return Response({"detalles_pedidos": detalles_pedidos})
