@@ -1,5 +1,16 @@
 from django.db import models
 
+class Rol(models.Model):
+    id_rol = models.AutoField(primary_key=True)
+    rol = models.CharField(default='cliente', max_length=100)
+    description = models.TextField(default='No description')
+
+    class Meta:
+        db_table = 'rol'
+
+    def __str__(self):
+        return f'{self.rol}'
+
 class Categoria(models.Model):
     id_categoria = models.AutoField(primary_key=True)
     nombre_categoria = models.CharField(max_length=100)
@@ -20,22 +31,11 @@ class Autor(models.Model):
     def __str__(self):
         return f'{self.nombre}'
 
-class Rol(models.Model):
-    rol = models.CharField(default='cliente', max_length=100)
-    description = models.TextField(default='No description')
-
-    class Meta:
-        db_table = 'rol'
-
-    def __str__(self):
-        return self.rol
-
 class UsuarioCliente(models.Model):
     id_cliente = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=200)
     email = models.EmailField(unique=True)
     contrasena = models.CharField(max_length=255)
-    roles = models.ManyToManyField(Rol)
 
     class Meta:
         db_table = 'usuario_cliente'
@@ -97,21 +97,25 @@ class FormaPago(models.Model):
     def __str__(self):
         return self.descripcion
 
+
+def get_upload_path(instance, filename):
+    return f'libros/{instance.titulo}/{filename}'
+
 class Libro(models.Model):
     id_libro = models.AutoField(primary_key=True)
     titulo = models.CharField(max_length=255)
-    portada = models.ImageField('Portada', upload_to='portadas/', default='No disponible')
-    categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True, related_name='libros')
-    descripcion = models.CharField('Descripcion', max_length=1000, default='No disponible')
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.IntegerField()
-    autor = models.ForeignKey(Autor, on_delete=models.SET_NULL, null=True)
+    categoria = models.ForeignKey(Categoria, on_delete=models.RESTRICT)
+    descripcion = models.TextField()
+    portada = models.ImageField(upload_to=get_upload_path, null=True, blank=True)
+    autor = models.ForeignKey(Autor, on_delete=models.RESTRICT, null=True, blank=True)
 
     class Meta:
         db_table = 'libro'
 
     def __str__(self):
-        return self.titulo
+        return f'{self.titulo}'
 
 class Pedido(models.Model):
     id_pedido = models.AutoField(primary_key=True)

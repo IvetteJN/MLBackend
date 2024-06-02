@@ -1,5 +1,77 @@
 from rest_framework import serializers
-from .models import UsuarioCliente, UsuarioAdministrador, Rol, Libro, Autor, Categoria, HistorialPedido, DetallePedido
+from .models import (Categoria, Autor, UsuarioCliente, UsuarioAdministrador,
+                     Direccion, FormaEnvio, FormaPago, Pedido, HistorialPedido,
+                     Reseña, Libro, DetallePedido, Rol)
+
+
+
+class CategoriaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Categoria
+        fields = ['nombre_categoria']
+
+class AutorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Autor
+        fields = ['nombre']
+
+class UsuarioClienteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UsuarioCliente
+        fields = '__all__'
+
+class UsuarioAdministradorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UsuarioAdministrador
+        fields = '__all__'
+
+class UsuarioClienteRegistroSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UsuarioCliente
+        fields = '__all__'
+
+class DireccionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Direccion
+        fields = '__all__'
+
+class FormaEnvioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FormaEnvio
+        fields = '__all__'
+
+class FormaPagoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FormaPago
+        fields = '__all__'
+
+class CategoriaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Categoria
+        fields = ['nombre_categoria']
+
+class AutorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Autor
+        fields = ['nombre']
+
+class LibroSerializer(serializers.ModelSerializer):
+    categoria = serializers.StringRelatedField()
+    autor = serializers.StringRelatedField(allow_null=True)
+
+    class Meta:
+        model = Libro
+        fields = '__all__'
+
+class PedidoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pedido
+        fields = '__all__'
+
+class DetallePedidoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DetallePedido
+        fields = '__all__'
 
 
 class HistorialPedidoSerializer(serializers.ModelSerializer):
@@ -7,44 +79,14 @@ class HistorialPedidoSerializer(serializers.ModelSerializer):
         model = HistorialPedido
         fields = '__all__'
 
-class UsuarioClienteSerializer(serializers.ModelSerializer):
+class ReseñaSerializer(serializers.ModelSerializer):
     class Meta:
-        model = UsuarioCliente
-        fields = ('id_cliente','nombre', 'email', 'contrasena')
-
-class UsuarioAdministradorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UsuarioAdministrador
-        fields = ('id_admin', 'usuario', 'contrasena')
-
-class UsuarioClienteRegistroSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UsuarioCliente
-        fields = ('nombre', 'email', 'contrasena')
+        model = Reseña
+        fields = '__all__'
 
 class RolSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rol
-        fields = ('id', 'rol')
-
-class LibroSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Libro
-        fields = ['id_libro', 'titulo', 'portada', 'categoria', 'autor', 'descripcion', 'precio', 'stock']
-
-class CategoriaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Categoria
-        fields = ['id_categoria', 'nombre_categoria']
-
-class AutorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Autor
-        fields = ['id_autor', 'nombre']
-
-class DetallePedidoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DetallePedido
         fields = '__all__'
 
 
