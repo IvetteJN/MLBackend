@@ -135,7 +135,7 @@ class DetallePedido(models.Model):
     cantidad = models.IntegerField()
     precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
     precio_total = models.DecimalField(max_digits=10, decimal_places=2)
-    is_cart = models.BooleanField(default=True)
+    
 
     class Meta:
         db_table = 'detalle_pedido'

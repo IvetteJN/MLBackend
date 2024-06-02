@@ -3,6 +3,10 @@ from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
 from .models import UsuarioCliente, UsuarioAdministrador, Rol, HistorialPedido, DetallePedido, Libro, Categoria, Autor
 from .serializers import UsuarioClienteSerializer, UsuarioAdministradorSerializer, RolSerializer, HistorialPedidoSerializer, DetallePedidoSerializer, LibroSerializer, CategoriaSerializer, AutorSerializer
+from .models import UsuarioCliente, Pedido, Direccion, DetallePedido, Libro
+from .serializers import DetallePedidoSerializer
+
+
 
 class HistorialPedidoSet(viewsets.ModelViewSet):
     queryset=HistorialPedido.objects.all()
@@ -97,7 +101,7 @@ class AutorViewSet(viewsets.ModelViewSet):
     serializer_class = AutorSerializer
     
 class CarritoViewSet(viewsets.ModelViewSet):
-    queryset = DetallePedido.objects.filter(is_cart=True)
+   
     serializer_class = DetallePedidoSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -113,7 +117,7 @@ class CarritoViewSet(viewsets.ModelViewSet):
 
         detalle_pedido, created = DetallePedido.objects.get_or_create(
             libro=libro,
-            is_cart=True,
+           
             defaults={
                 'cantidad': cantidad,
                 'precio_unitario': precio_unitario,
@@ -134,8 +138,31 @@ class CarritoViewSet(viewsets.ModelViewSet):
         libro = Libro.objects.get(id=libro_id)
 
         try:
-            detalle_pedido = DetallePedido.objects.get(libro=libro, is_cart=True)
+            detalle_pedido = DetallePedido.objects.get(libro=libro)
             detalle_pedido.delete()
             return Response(status=204)
         except DetallePedido.DoesNotExist:
             return Response({"error": "Item no encontrado en el carrito"}, status=404)
+
+
+
+@api_view(['GET'])
+def detalle_pedido_por_cliente(request, cliente_id):
+    try:
+        cliente = UsuarioCliente.objects.get(id_cliente=cliente_id)
+    except UsuarioCliente.DoesNotExist:
+        return Response({"message": "Cliente no encontrado"}, status=404)
+
+    
+    detalles_pedidos = DetallePedido.objects.filter(pedido__usuario_cliente=cliente).values(
+        'pedido__usuario_cliente__id_cliente',
+        'pedido__usuario_cliente__nombre',
+        'pedido__direccion_envio__direccion',
+        'pedido__estado_pedido',
+        'pedido__fecha_pedido',
+        'libro__titulo',
+        'cantidad',
+        'precio_total'
+    )
+
+    return Response({"detalles_pedidos": detalles_pedidos})

@@ -18,4 +18,5 @@ urlpatterns = [
     path('api/libros/', views.list_libro, name='list_libros'),
     path('api/autor/', views.list_autor, name='list_autor'),
     path('api/categoria/', views.list_categoria, name='list_categoria'),
+    path('api/cliente/<int:cliente_id>/detalle-pedido/', views.detalle_pedido_por_cliente, name='detalle_pedido_por_cliente'),
 ]

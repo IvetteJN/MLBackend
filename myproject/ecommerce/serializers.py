@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import UsuarioCliente, UsuarioAdministrador, Rol, Libro, Autor, Categoria, HistorialPedido, DetallePedido
 
+
 class HistorialPedidoSerializer(serializers.ModelSerializer):
     class Meta:
         model = HistorialPedido
@@ -40,6 +41,14 @@ class AutorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Autor
         fields = ['id_autor', 'nombre']
+
+class DetallePedidoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DetallePedido
+        fields = '__all__'
+
+
+
 
 class DetallePedidoSerializer(serializers.ModelSerializer):
     class Meta:
