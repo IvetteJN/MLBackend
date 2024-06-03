@@ -1,4 +1,4 @@
-from rest_framework import status, viewsets, permissions
+from rest_framework import status, viewsets, permissions, generics
 from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
 from django.db.models import Q
@@ -178,3 +178,18 @@ def list_pedido(request):
 class PedidoViewSet(viewsets.ModelViewSet):
     queryset = Pedido.objects.all()
     serializer_class = PedidoSerializer
+
+@api_view(['POST'])
+def list_direccion(request):
+    if request.method == 'POST':
+        serializer = DireccionSerializer(data=request.data, many=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class DireccionViewSet(viewsets.ModelViewSet):
+    queryset = Direccion.objects.all()
+    serializer_class = DireccionSerializer
+
