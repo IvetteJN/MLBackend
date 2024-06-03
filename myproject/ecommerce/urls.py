@@ -16,7 +16,7 @@ router.register(r'api/autor', views.AutorViewSet)
 router.register(r'api/formaEnvio', views.FormaEnvioViewSet)
 router.register(r'api/formaPago', views.FormaPagoViewSet)
 router.register(r'api/pedido', views.PedidoViewSet)
-
+router.register(r'api/direccion', views.DireccionViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -29,7 +29,7 @@ urlpatterns = [
     path('api/formaEnvio/', views.list_forma_envio, name='list_forma_envio'),
     path('api/formaPago/', views.list_forma_pago, name='list_forma_pago'),
     path('api/pedido/', views.list_pedido, name='list_pedido'),
-
+    path('api/direccion/', views.list_direccion, name='list_direccion'),
 ]
 
 if settings.DEBUG:

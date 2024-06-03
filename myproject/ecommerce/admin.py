@@ -31,7 +31,7 @@ class UsuarioAdministradorAdmin(admin.ModelAdmin):
 
 @admin.register(Direccion)
 class DireccionAdmin(admin.ModelAdmin):
-    list_display = ('id_direccion', 'usuario_cliente', 'direccion', 'ciudad', 'provincia', 'codigo_postal')
+    list_display = ('direccion', 'ciudad', 'provincia', 'codigo_postal')
     search_fields = ('direccion', 'ciudad', 'provincia', 'codigo_postal')
 
 @admin.register(FormaEnvio)

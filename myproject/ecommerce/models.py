@@ -64,12 +64,10 @@ class UsuarioAdministrador(models.Model):
 
 class Direccion(models.Model):
     id_direccion = models.AutoField(primary_key=True)
-    usuario_cliente = models.ForeignKey(UsuarioCliente, on_delete=models.CASCADE, null=True, blank=True, related_name='direcciones')
     direccion = models.CharField(max_length=255)
     ciudad = models.CharField(max_length=100)
     provincia = models.CharField('Provincia', max_length=100, default='Desconocido')
     codigo_postal = models.CharField(max_length=20)
-    pais = models.CharField(max_length=100)
 
     class Meta:
         db_table = 'direccion'
