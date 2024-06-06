@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from .models import (
     CustomUser,
@@ -70,6 +71,11 @@ class AutorViewSet(viewsets.ModelViewSet):
 class LibroViewSet(viewsets.ModelViewSet):
     queryset = Libro.objects.all()
     serializer_class = LibroSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = {
+        'titulo': ['icontains'],
+        'id_categoria__nombre_categoria': ['exact'],
+    }
 
 class DireccionViewSet(viewsets.ModelViewSet):
     queryset = Direccion.objects.all()
