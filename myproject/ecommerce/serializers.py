@@ -1,33 +1,51 @@
 from rest_framework import serializers
-from .models import (Categoria, Autor, UsuarioCliente, UsuarioAdministrador,
-                     Direccion, FormaEnvio, FormaPago, Pedido, HistorialPedido,
-                     Reseña, Libro, DetallePedido, Rol)
+from django.contrib.auth import get_user_model
+from django.contrib.auth.hashers import make_password
+from .models import (
+    CustomUser,
+    Categoria,
+    Autor,
+    Libro,
+    Direccion,
+    FormaEnvio,
+    FormaPago,
+    Pedido,
+    EstadoPedido,
+    HistorialPedido,
+    Reseña,
+    Rol
+)
 
+def validate_password(self, value):
+    return make_password
 
+class UserSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(required=True)
+    username = serializers.CharField(required=True)
+    password = serializers.CharField(min_length=8)
+
+    class Meta:
+        model = get_user_model()
+        fields = ('email', 'username', 'password')
+
+class RolSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rol
+        fields = '__all__'
 
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categoria
-        fields = ['nombre_categoria']
+        fields = '__all__'
 
 class AutorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Autor
-        fields = ['nombre']
-
-class UsuarioClienteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UsuarioCliente
         fields = '__all__'
 
-class UsuarioAdministradorSerializer(serializers.ModelSerializer):
+class LibroSerializer(serializers.ModelSerializer):
     class Meta:
-        model = UsuarioAdministrador
-        fields = '__all__'
-
-class UsuarioClienteRegistroSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UsuarioCliente
+        model = Libro
         fields = '__all__'
 
 class DireccionSerializer(serializers.ModelSerializer):
@@ -45,34 +63,15 @@ class FormaPagoSerializer(serializers.ModelSerializer):
         model = FormaPago
         fields = '__all__'
 
-class CategoriaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Categoria
-        fields = ['nombre_categoria']
-
-class AutorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Autor
-        fields = ['nombre']
-
-class LibroSerializer(serializers.ModelSerializer):
-    categoria = serializers.StringRelatedField()
-    autor = serializers.StringRelatedField(allow_null=True)
-
-    class Meta:
-        model = Libro
-        fields = '__all__'
-
 class PedidoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pedido
         fields = '__all__'
 
-class DetallePedidoSerializer(serializers.ModelSerializer):
+class EstadoPedidoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = DetallePedido
+        model = EstadoPedido
         fields = '__all__'
-
 
 class HistorialPedidoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -82,17 +81,4 @@ class HistorialPedidoSerializer(serializers.ModelSerializer):
 class ReseñaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reseña
-        fields = '__all__'
-
-class RolSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Rol
-        fields = '__all__'
-
-
-
-
-class DetallePedidoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DetallePedido
         fields = '__all__'

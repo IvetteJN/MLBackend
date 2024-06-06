@@ -1,76 +1,53 @@
 from django.contrib import admin
-from .models import (Categoria, Autor, UsuarioCliente, UsuarioAdministrador, 
-                     Direccion, FormaEnvio, FormaPago, Pedido, HistorialPedido, 
-                     Reseña, Libro, DetallePedido, Rol)
+from django.contrib.auth import get_user_model
+from django.contrib.auth.admin import UserAdmin
+from .models import Categoria, Libro, Autor, Direccion, FormaEnvio, FormaPago, Pedido, EstadoPedido, HistorialPedido, Reseña, Rol
 
+@admin.register(get_user_model())
+class CustomUserAdmin(UserAdmin):
+    list_display = ('username', 'email', 'password')
 
-@admin.register(Rol)
 class RolAdmin(admin.ModelAdmin):
-    list_display = ('rol', 'description')
-    search_fields = ('rol',)
+    list_display = ('rol', 'usuario')
 
-@admin.register(Categoria)
 class CategoriaAdmin(admin.ModelAdmin):
-    list_display = ('id_categoria', 'nombre_categoria')
-    search_fields = ('nombre_categoria',)
+    list_display = ('nombre_categoria',)
 
-@admin.register(Autor)
 class AutorAdmin(admin.ModelAdmin):
-    list_display = ('id_autor', 'nombre')
-    search_fields = ('nombre',)
+    list_display = ('nombre_autor',)
 
-@admin.register(UsuarioCliente)
-class UsuarioClienteAdmin(admin.ModelAdmin):
-    list_display = ('id_cliente', 'nombre', 'email')
-    search_fields = ('nombre', 'email')
-
-@admin.register(UsuarioAdministrador)
-class UsuarioAdministradorAdmin(admin.ModelAdmin):
-    list_display = ('id_admin', 'usuario')
-    search_fields = ('usuario',)
-
-@admin.register(Direccion)
-class DireccionAdmin(admin.ModelAdmin):
-    list_display = ('direccion', 'ciudad', 'provincia', 'codigo_postal')
-    search_fields = ('direccion', 'ciudad', 'provincia', 'codigo_postal')
-
-@admin.register(FormaEnvio)
-class FormaEnvioAdmin(admin.ModelAdmin):
-    list_display = ('id_forma_envio', 'descripcion')
-    search_fields = ('descripcion',)
-
-@admin.register(FormaPago)
-class FormaPagoAdmin(admin.ModelAdmin):
-    list_display = ('id_forma_pago', 'descripcion')
-    search_fields = ('descripcion',)
-
-@admin.register(Pedido)
-class PedidoAdmin(admin.ModelAdmin):
-    list_display = ('id_pedido', 'usuario_cliente', 'estado_pedido', 'fecha_pedido', 'direccion_envio', 'forma_envio', 'forma_pago')
-    search_fields = ('usuario_cliente__nombre', 'estado_pedido')
-    list_filter = ('estado_pedido', 'fecha_pedido', 'forma_envio', 'forma_pago')
-
-@admin.register(HistorialPedido)
-class HistorialPedidoAdmin(admin.ModelAdmin):
-    list_display = ('id_historial', 'pedido', 'estado_pedido', 'fecha_cambio')
-    search_fields = ('pedido__id_pedido', 'estado_pedido')
-    list_filter = ('estado_pedido', 'fecha_cambio')
-
-@admin.register(Reseña)
-class ResenaAdmin(admin.ModelAdmin):
-    list_display = ('id_resena', 'libro', 'usuario_cliente', 'comentario', 'calificacion', 'fecha_resena')
-    search_fields = ('libro__titulo', 'usuario_cliente__nombre', 'calificacion')
-    list_filter = ('calificacion', 'fecha_resena')
-
-@admin.register(Libro)
 class LibroAdmin(admin.ModelAdmin):
-    list_display = ('id_libro', 'titulo', 'portada', 'categoria', 'autor', 'descripcion', 'precio', 'stock')
-    search_fields = ('titulo', 'precio')
-    list_filter = ('categoria',)
+    list_display = ('titulo', 'portada', 'id_categoria', 'id_autor', 'descripcion', 'precio', 'stock')
 
-@admin.register(DetallePedido)
-class DetallePedidoAdmin(admin.ModelAdmin):
-    list_display = ('id_detalle', 'pedido', 'libro', 'cantidad', 'precio_unitario', 'precio_total')
-    search_fields = ('pedido__id_pedido', 'libro__titulo')
-    list_filter = ('pedido',)
+class DireccionAdmin(admin.ModelAdmin):
+    list_display = ('calle', 'ciudad', 'provincia', 'codigo_postal')
 
+class FormaEnvioAdmin(admin.ModelAdmin):
+    list_display = ('forma_envio',)
+
+class FormaPagoAdmin(admin.ModelAdmin):
+    list_display = ('forma_pago',)
+
+class PedidoAdmin(admin.ModelAdmin):
+    list_display = ('usuario', 'estado_pedido', 'fecha_pedido', 'direccion_envio', 'forma_envio', 'forma_pago')
+
+class EstadoPedidoAdmin(admin.ModelAdmin):
+    list_display = ('estado_pedido', 'id_pedido')
+
+class HistorialPedidoAdmin(admin.ModelAdmin):
+    list_display = ('pedido', 'estado_pedido', 'fecha_cambio')
+
+class ReseñaAdmin(admin.ModelAdmin):
+    list_display = ('libro', 'usuario', 'comentario', 'calificacion', 'fecha_resena')
+
+admin.site.register(Categoria, CategoriaAdmin)
+admin.site.register(Rol, RolAdmin)
+admin.site.register(Libro, LibroAdmin)
+admin.site.register(Autor, AutorAdmin)
+admin.site.register(Direccion, DireccionAdmin)
+admin.site.register(FormaEnvio, FormaEnvioAdmin)
+admin.site.register(FormaPago, FormaPagoAdmin)
+admin.site.register(Pedido, PedidoAdmin)
+admin.site.register(EstadoPedido, EstadoPedidoAdmin)
+admin.site.register(HistorialPedido, HistorialPedidoAdmin)
+admin.site.register(Reseña, ReseñaAdmin)

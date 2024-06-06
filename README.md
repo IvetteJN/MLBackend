@@ -6,26 +6,33 @@
 
 # Descripción del proyecto
 
-Mercado Libro es un proyecto en desarrollo, para la materia Programador Full Stack, de la carrera Técnico en Desarrollo Web y Aplicaciones Digitales, del Instituto Superior Politécnico de Córdoba.
-La finalidad del mismo es crear una página web navegable con código JavaScript para el frontend y Python para el backend. Se creó una base de datos en MySQL, pero por el momento se consumen los datos de un LocalStorage .json.
-La página web es capaz de mostrar el contenido a la venta con sus datos más relevantes y con la opción de consultar más información. 
-Además, ofrece la opción de registro de usuarios, con la finalidad de distribuir newsletters, permitir que el usuario haga una reseña de los libros que conoce o compró, y comprar en sí mismo.
+Mercado Libro es un proyecto en desarrollo, para el módulo Programador Full Stack, de la carrera Técnico en Desarrollo Web y Aplicaciones Digitales, del Instituto Superior Politécnico de Córdoba.
+El objetivo de este proyecto es desarrollar una tienda de productos o servicios mejorada mediante utilizando el marco de trabajo Scrum. La tienda deberá poder mostrar las siguientes páginas web como mínimo:
+Landing page (página de aterrizaje).
+Panel de Control (dashboard cliente por el momento)
+Quienes somos.
+Contacto.
+Galería de productos o servicios con posibilidad de acceder a la descripción de cada producto o servicio.
+Gestión de usuarios: login y registro de usuarios.
+
+Esta actividad formativa, de complejidad gradual y creciente, deberá llevarse a cabo por todos los estudiantes, mediante la supervisión de los docentes quienes orientarán la propuesta de acuerdo a las ideas innovadoras y/o de necesidades potenciales en el mundo actual.
+
 Este es el repositorio del backend. El repositorio frontend se puede encontrar en el siguiente link: https://github.com/CodeSquadISPC/CodeSquadRepoFrontend
 
 # Estado del proyecto
 
 🚧 Proyecto en construcción 🚧
-El proyecto momentáneamente se encuentra en desarrollo, pero como describíamos más arriba, posee un frontend y un backend con base de datos funcionales.
+El proyecto momentáneamente se encuentra en desarrollo.
 
 # 💻 Funcionalidades
 
-Funcionalidad 1: venta de libros, el LocalStorage almacena los libros a la venta con todos sus datos (nombre, descripción, precio, stock, autor, categoría, etc.)
-Funcionalidad 2: registro de usuarios, el registro de usuarios se utilizará para el perfil del usuario comprador, el usuario que desea dejar reseñas y el que desea recibir novedades. Si bien está disponible la opción en el frontend, aún no comunica con la base de datos.
-Funcionalidad 3: desde el backend, el usuario administrador puede modificar la base de datos de los libros y usuarios. El usuario comprador, una vez registrado, puede comprar, dejar reseñas y registrarse para recibir novedades. El carrito de compras almacena los libros seleccionados por el comprador y deriva en la página de pago.
+Funcionalidad 1: venta de libros, la base de datos MySQL almacena los libros a la venta con todos sus datos (nombre, descripción, precio, stock, autor, categoría, etc.)
+Funcionalidad 2: registro de usuarios, el registro de usuarios se utilizará para el perfil del usuario comprador, el usuario que desea dejar reseñas y el que desea recibir novedades. El registro y la autenticación son enviados desde el frontend al backend y almacenados en la base de datos.
+Funcionalidad 3: desde el backend, el usuario administrador puede modificar la base de datos de los libros y usuarios. El usuario comprador, una vez registrado, puede comprar, dejar reseñas (en desarrollo) y registrarse para recibir novedades (en desarrollo). El carrito de compras almacena los libros seleccionados por el comprador y deriva en la página de pago.
 
 # Acceso al proyecto
 
-🛠️ Si bien no está finalizado, se puede visitar el siguiente sitio online: https://sharkcoders.github.io/FinalProject2023/
+🛠️ Si bien no está finalizado, se puede visitar el siguiente sitio online: https://sharkcoders.github.io/FinalProject2023/ hasta que se despliegue el proyecto definitivo.
 
 # 📁 Tecnologías
 
@@ -39,12 +46,12 @@ Funcionalidad 3: desde el backend, el usuario administrador puede modificar la b
 * Bootstrap
 
 # 👷‍♀️👷‍♂️ Contributors
-* Gonzalez Miguel Angel	
+* Gonzalez Miguel Angel	-- de baja
 * Ñañez Nahir Nicolás
-* Pellicer Palcios Analia Anahí	
-* Orellana Franco Rafael	
+* Pellicer Palcios Analia Anahí	-- de baja
+* Orellana Franco Rafael	-- de baja
 * Luna Dalla Lasta Marcelo Javier
-* Falconi Virginia Soledad	
+* Falconi Virginia Soledad	-- de baja
 * Plaza Leonardo	
 * Nobiltá Ivette Jael
 
