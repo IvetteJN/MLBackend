@@ -24,6 +24,14 @@ class UserSerializer(serializers.ModelSerializer):
     username = serializers.CharField(required=True)
     password = serializers.CharField(min_length=8)
 
+    def create(self, validated_data):
+        user = get_user_model().objects.create(
+            email=validated_data['email'],
+            username=validated_data['username'],
+            password=make_password(validated_data['password'])
+        )
+        return user
+
     class Meta:
         model = get_user_model()
         fields = ('email', 'username', 'password')
@@ -36,17 +44,26 @@ class RolSerializer(serializers.ModelSerializer):
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categoria
-        fields = '__all__'
+        fields = ('nombre_categoria',)
 
 class AutorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Autor
-        fields = '__all__'
+        fields = ('nombre_autor',)
 
 class LibroSerializer(serializers.ModelSerializer):
+    autor = serializers.SerializerMethodField()
+    categoria = serializers.SerializerMethodField()
+
     class Meta:
         model = Libro
         fields = '__all__'
+
+    def get_autor(self, obj):
+        return obj.id_autor.nombre_autor 
+
+    def get_categoria(self, obj):
+        return obj.id_categoria.nombre_categoria
 
 class DireccionSerializer(serializers.ModelSerializer):
     class Meta:

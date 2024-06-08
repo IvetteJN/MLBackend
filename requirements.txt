@@ -16,6 +16,7 @@ wheel==0.43.0
 # procedimiento:
 # python -m venv mercadolibro
 # mercadolibro/Scripts/activate
+# pip install django-filter
 # pip install -r requirements.txt
 
 # django-admin startproject myproject
