@@ -2,7 +2,7 @@ from django.urls import path, include
 from rest_framework import routers
 from .views import LoginView, LogoutView, SignupView, RolViewSet, CategoriaViewSet, AutorViewSet, LibroViewSet, \
     DireccionViewSet, FormaEnvioViewSet, FormaPagoViewSet, PedidoViewSet, EstadoPedidoViewSet, HistorialPedidoViewSet, \
-    ReseñaViewSet
+    ReseñaViewSet, UserViewSet
 
 router = routers.DefaultRouter()
 router.register(r'roles', RolViewSet)
@@ -16,6 +16,8 @@ router.register(r'pedidos', PedidoViewSet)
 router.register(r'estadospedido', EstadoPedidoViewSet)
 router.register(r'historialespedido', HistorialPedidoViewSet)
 router.register(r'resenas', ReseñaViewSet)
+router.register(r'usuarios', UserViewSet)
+
 
 urlpatterns = [
     path('', include(router.urls)),

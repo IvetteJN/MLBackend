@@ -32,7 +32,6 @@ from django.contrib.auth import authenticate, login, logout
 from rest_framework import status, generics
 from rest_framework.response import Response 
 from rest_framework.views import APIView
-from django.shortcuts import render
 
 class SignupView(generics.CreateAPIView):
     serializer_class = UserSerializer
@@ -49,12 +48,17 @@ class LoginView(APIView):
                 UserSerializer(user).data,
                 status=status.HTTP_200_OK)
         return Response(
+            {'error': 'Invalid Credentials'},
             status=status.HTTP_404_NOT_FOUND)
 
 class LogoutView(APIView):
     def post(self, request):
         logout(request)
         return Response(status=status.HTTP_200_OK)
+    
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserSerializer
 
 class RolViewSet(viewsets.ModelViewSet):
     queryset = Rol.objects.all()
@@ -80,7 +84,6 @@ class LibroViewSet(viewsets.ModelViewSet):
 class DireccionViewSet(viewsets.ModelViewSet):
     queryset = Direccion.objects.all()
     serializer_class = DireccionSerializer
-    
 
 class FormaEnvioViewSet(viewsets.ModelViewSet):
     queryset = FormaEnvio.objects.all()

@@ -47,6 +47,9 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_WHITELIST= ['http://localhost:4200']
 CORS_ALLOW_CREDENTIALS = True
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:4200', 
+]
 
 ROOT_URLCONF = 'myproject.urls'
 
