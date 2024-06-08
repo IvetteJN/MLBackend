@@ -1,5 +1,9 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins
+from django.contrib.auth import authenticate, login, logout
+from rest_framework import status, generics
+from rest_framework.response import Response 
+from rest_framework.views import APIView
 from .models import (
     CustomUser,
     Categoria,
@@ -17,21 +21,18 @@ from .models import (
 from .serializers import (
     CategoriaSerializer,
     AutorSerializer,
+    HistorialPedidoSerializer,
     LibroSerializer,
     DireccionSerializer,
     FormaEnvioSerializer,
     FormaPagoSerializer,
     PedidoSerializer,
     EstadoPedidoSerializer,
-    HistorialPedidoSerializer,
     ReseñaSerializer,
     RolSerializer, 
     UserSerializer
 )
-from django.contrib.auth import authenticate, login, logout
-from rest_framework import status, generics
-from rest_framework.response import Response 
-from rest_framework.views import APIView
+
 
 class SignupView(generics.CreateAPIView):
     serializer_class = UserSerializer
@@ -106,8 +107,24 @@ class EstadoPedidoViewSet(viewsets.ModelViewSet):
     
 
 class HistorialPedidoViewSet(viewsets.ModelViewSet):
-    queryset = HistorialPedido.objects.all()
     serializer_class = HistorialPedidoSerializer
+    def list(self, request, cliente_id=None):
+        pedidos = Pedido.objects.filter(usuario_id=cliente_id)
+        detalles_pedidos = []
+
+        for pedido in pedidos:
+            detalles = HistorialPedido.objects.filter(id_pedido=pedido)
+            for detalle in detalles:
+                detalles_pedidos.append({
+                    'direccion_envio': f'{pedido.direccion_envio.calle}, {pedido.direccion_envio.ciudad}, {pedido.direccion_envio.provincia}',
+                    'estado_pedido': detalle.estado_pedido,
+                    'fecha_pedido': detalle.fecha_pedido,
+                    'titulo_libro': detalle.libro.titulo,
+                    'cantidad': detalle.cantidad,
+                    'precio_total': detalle.precio_total,
+                })
+
+        return Response({'detalles_pedidos': detalles_pedidos})
     
 
 class ReseñaViewSet(viewsets.ModelViewSet):

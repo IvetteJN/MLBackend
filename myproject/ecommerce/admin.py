@@ -35,7 +35,7 @@ class EstadoPedidoAdmin(admin.ModelAdmin):
     list_display = ('estado_pedido', 'id_pedido')
 
 class HistorialPedidoAdmin(admin.ModelAdmin):
-    list_display = ('pedido', 'estado_pedido', 'fecha_cambio')
+    list_display = ('id_pedido', 'estado_pedido', 'fecha_pedido')
 
 class ReseñaAdmin(admin.ModelAdmin):
     list_display = ('libro', 'usuario', 'comentario', 'calificacion', 'fecha_resena')
