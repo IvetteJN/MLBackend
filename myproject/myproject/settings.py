@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_filters',
     'ecommerce',
     'corsheaders',
     'rest_framework',
@@ -56,7 +57,10 @@ ROOT_URLCONF = 'myproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'), 
+            os.path.join(BASE_DIR, 'venv/Lib/site-packages/django_filters/rest_framework'),  
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

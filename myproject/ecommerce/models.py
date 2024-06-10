@@ -144,15 +144,18 @@ class EstadoPedido(models.Model):
 
 class HistorialPedido(models.Model):
     id_historial = models.AutoField(primary_key=True)
-    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, related_name='historiales')
-    estado_pedido = models.CharField(max_length=50)
-    fecha_cambio = models.DateTimeField(auto_now_add=True)
+    id_pedido = models.ForeignKey(Pedido, related_name='historial', on_delete=models.CASCADE, default=1)
+    libro = models.ForeignKey(Libro, related_name='historial_pedido', on_delete=models.CASCADE, default=1)
+    precio_total = models.DecimalField(max_digits=10, decimal_places=2, default=1)
+    fecha_pedido = models.DateTimeField(auto_now_add=True)
+    estado_pedido = models.CharField(max_length=50, default=1)
 
     class Meta:
         db_table = 'historial_pedido'
 
     def __str__(self):
-        return f'Historial {self.id_historial} - {self.estado_pedido}'
+        return f'Historial {self.id_historial} - Pedido {self.id_pedido}'
+
 
 class Reseña(models.Model):
     id_resena = models.AutoField(primary_key=True)
