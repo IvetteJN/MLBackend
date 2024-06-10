@@ -1,5 +1,5 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets, mixins
+from rest_framework import viewsets
 from django.contrib.auth import authenticate, login, logout
 from rest_framework import status, generics
 from rest_framework.response import Response 
@@ -107,6 +107,7 @@ class EstadoPedidoViewSet(viewsets.ModelViewSet):
     
 
 class HistorialPedidoViewSet(viewsets.ModelViewSet):
+    queryset = HistorialPedido.objects.all()
     serializer_class = HistorialPedidoSerializer
     def list(self, request, cliente_id=None):
         pedidos = Pedido.objects.filter(usuario_id=cliente_id)
