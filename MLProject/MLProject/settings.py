@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-u2cy_*yur-^)a-069jr*k^ap0lz!07%iqlm_sc*+3mcwf8-)iw'
+SECRET_KEY = 'django-insecure-=@pazm$s_o0$i*)0$#+p8f&d&y+t4vilon-6%et=q0ixlph4g)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -27,13 +27,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_filters',
-    'ecommerce',
+    'mercadolibro',
     'corsheaders',
-    'rest_framework',
+    'rest_framework'
 ]
 
-AUTH_USER_MODEL = 'ecommerce.CustomUser'
-
+AUTH_USER_MODEL = 'mercadolibro.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -52,15 +51,12 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:4200', 
 ]
 
-ROOT_URLCONF = 'myproject.urls'
+ROOT_URLCONF = 'MLProject.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(BASE_DIR, 'templates'), 
-            os.path.join(BASE_DIR, 'venv/Lib/site-packages/django_filters/rest_framework'),  
-        ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -73,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'myproject.wsgi.application'
+WSGI_APPLICATION = 'MLProject.wsgi.application'
 
 
 # Database
@@ -83,7 +79,7 @@ DATABASES = {
 
 'default': {
 'ENGINE': 'django.db.backends.mysql',
-'NAME': 'mercadolibro_db',
+'NAME': 'mercado_libro',
 'USER': 'root',
 'PASSWORD': 'Ismael07',
 'HOST': 'localhost',
@@ -135,8 +131,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-DEBUG = True
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

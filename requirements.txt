@@ -14,13 +14,13 @@ wheel==0.43.0
 
 
 # procedimiento:
-# python -m venv mercadolibro
-# mercadolibro/Scripts/activate
+# python -m venv mercadolibro.venv
+# mercadolibro.venv/Scripts/activate
 # pip install django-filter
 # pip install -r requirements.txt
 
-# django-admin startproject myproject
-# cd myproject
+# django-admin startproject MLProject
+# cd MLProject
 # settings.py
 
 # python manage.py makemigrations
@@ -30,4 +30,4 @@ wheel==0.43.0
 # python manage.py createsuperuser (importante: el login es con el email, registrarlo)
 # python manage.py runserver
 
-# python manage.py startapp ecommerce
+# python manage.py startapp mercadolibro
